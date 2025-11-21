@@ -28,8 +28,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       .eq('id', userId)
       .maybeSingle();
 
-    if (data && !error) {
+    if (error) {
+      console.error('Error fetching profile:', error);
+      return;
+    }
+
+    if (data) {
       setProfile(data);
+    } else {
+      // Profile doesn't exist - try to create it from auth.users data
+      console.warn('Profile not found for user, attempting to create...');
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (user?.email) {
+        const { data: newProfile, error: createError } = await supabase
+          .from('profiles')
+          .insert({
+            id: userId,
+            email: user.email,
+            name: user.email.split('@')[0],
+            sales_role: 'SDR',
+            industry: 'Technology',
+          })
+          .select()
+          .maybeSingle();
+
+        if (newProfile && !createError) {
+          console.log('Profile created successfully');
+          setProfile(newProfile);
+        } else {
+          console.error('Failed to create profile:', createError);
+        }
+      }
     }
   };
 

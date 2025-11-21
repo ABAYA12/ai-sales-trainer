@@ -147,7 +147,9 @@ export default function SimulationPage({ scenario, onComplete, onBack }: Simulat
 
   const saveSession = async (): Promise<string | null> => {
     if (!profile?.id) {
-      console.error('Cannot save: No profile ID found');
+      console.error('❌ Cannot save: No profile ID found');
+      console.error('Profile state:', profile);
+      alert('Your profile is not loaded. Please refresh the page and try again.');
       return null;
     }
 
