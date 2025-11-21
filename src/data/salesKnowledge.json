@@ -1,0 +1,193 @@
+{
+  "greetings": {
+    "cold_call": [
+      "Hello? Who is this?",
+      "Yeah, what can I do for you?",
+      "This is Sarah. How did you get my number?",
+      "I'm pretty busy right now. What's this about?"
+    ],
+    "discovery": [
+      "Hi there! Thanks for taking the time. So what did you want to discuss?",
+      "Good morning! I've got about 20 minutes. What questions do you have?",
+      "Hi, I'm curious to learn more about what you're offering."
+    ],
+    "demo_followup": [
+      "Hi! Yeah, I saw the demo last week. I have some questions.",
+      "Thanks for following up. I've been discussing this with my team.",
+      "Good timing - I was just about to reach out to you."
+    ],
+    "price_objection": [
+      "Look, I'll be direct - your pricing is way too high. Our budget is about half of what you're asking.",
+      "I've gotten quotes from competitors that are 30-40% less. Why should I pay more?",
+      "I'm interested, but we don't have that kind of budget. What kind of discount can you offer?",
+      "Before we go further, I need to know if you can be flexible on pricing."
+    ],
+    "negotiation": [
+      "Okay, we're close to signing, but I need to work out some details. Your payment terms don't work for us.",
+      "Before I sign off, my team has concerns. We need some features included that are currently add-ons.",
+      "I'm ready to move forward, but my board wants a custom SLA with uptime guarantees.",
+      "I've been authorized to proceed, but there are strings attached. Where can you be flexible?"
+    ],
+    "general": [
+      "Hi there! Thanks for reaching out.",
+      "Hello! What can I help you with?",
+      "Good to meet you!",
+      "Hi, thanks for your time."
+    ]
+  },
+  "responses": {
+    "introduce_yourself": [
+      "Nice introduction. So what exactly does your company do?",
+      "Okay, I've heard of you. What makes your solution different?",
+      "Sure. Tell me - what problem are you trying to solve for me?",
+      "Got it. So why are you reaching out to me specifically?"
+    ],
+    "ask_about_needs": [
+      "That's a good question. Our main challenge is [specific pain point]. How do you address that?",
+      "Well, we're struggling with efficiency and our current process is manual. Can you help with that?",
+      "Honestly, we're not even sure what we need. What do most companies in our situation typically look for?",
+      "Our biggest issue is cost - everything is too expensive and we need better ROI."
+    ],
+    "explain_solution": [
+      "Interesting. But how is that different from what we already have?",
+      "I've heard this pitch before. What makes yours special?",
+      "That sounds good in theory, but I need specifics. What results have you actually delivered?",
+      "Okay, but what about integration with our existing systems? That's usually a nightmare."
+    ],
+    "discuss_features": [
+      "Do you have [specific feature]? That's critical for us.",
+      "What about reporting and analytics? We need detailed dashboards.",
+      "Can it integrate with [popular tool]? We use that heavily.",
+      "That's nice, but does it scale? We're growing fast."
+    ],
+    "pricing_pushback": [
+      "That's way more than I expected. Can you break down what I'm paying for?",
+      "Your competitor quoted me 30% less. Why is yours so expensive?",
+      "I need at least 20% off to even consider this. What can you do?",
+      "The price is a problem. What if we started with a smaller package?"
+    ],
+    "value_discussion": [
+      "Show me the ROI. How quickly will this pay for itself?",
+      "Value is great, but I need hard numbers. What savings are we talking about?",
+      "I've been burned before by solutions that promised savings. Why is yours different?",
+      "Okay, walk me through a real example of a customer who saw results."
+    ],
+    "competitor_comparison": [
+      "I'm also talking to [competitor]. What's your advantage over them?",
+      "Someone else quoted me less. Convince me why I should pay more.",
+      "Why shouldn't I just go with the cheaper option?",
+      "What do you have that they don't?"
+    ],
+    "timeline_concerns": [
+      "How long does implementation take? I can't afford months of disruption.",
+      "What's involved in getting this up and running?",
+      "Do you handle the setup or is that on us?",
+      "When can we realistically go live?"
+    ],
+    "security_compliance": [
+      "What about security? We handle sensitive data.",
+      "Are you SOC 2 compliant?",
+      "How do you handle data privacy and GDPR?",
+      "I need to see your security documentation before we go further."
+    ],
+    "support_training": [
+      "What kind of support do you offer?",
+      "Is training included or extra?",
+      "What happens if something goes wrong?",
+      "Do we get a dedicated account manager?"
+    ],
+    "objection_too_busy": [
+      "I appreciate the call, but I'm slammed right now. Can you send me something?",
+      "This isn't a priority for us at the moment.",
+      "Maybe follow up next quarter when things slow down.",
+      "I don't have time to evaluate new tools right now."
+    ],
+    "objection_happy_current": [
+      "We already have a solution and it works fine.",
+      "Why would we switch? That's a lot of effort.",
+      "Our current vendor gives us good service.",
+      "If it ain't broke, don't fix it."
+    ],
+    "objection_need_approval": [
+      "I'll need to run this by my boss.",
+      "This requires board approval, which takes time.",
+      "Let me discuss with my team and get back to you.",
+      "I can't make this decision alone."
+    ],
+    "positive_interest": [
+      "This actually sounds promising. What are the next steps?",
+      "I like what I'm hearing. How do we move forward?",
+      "Okay, you've got my attention. What do you need from me?",
+      "Let's explore this further. Can you send me a proposal?"
+    ],
+    "trial_request": [
+      "Can we do a trial first?",
+      "I need to test this with my team before committing.",
+      "What if it doesn't work for us? Do you have a money-back guarantee?",
+      "Let me see it in action before I spend money on it."
+    ],
+    "closing_signals": [
+      "Alright, you've convinced me. Let's talk contract terms.",
+      "I'm ready to move forward. What's the process?",
+      "Okay, I want to do this. Send me the paperwork.",
+      "This makes sense. Let's get started."
+    ],
+    "negotiation_payment_terms": [
+      "We need quarterly payments, not annual upfront.",
+      "Can you do monthly billing for the first year?",
+      "Net-60 payment terms are required by our finance department.",
+      "I can't do full payment upfront for an unproven vendor."
+    ],
+    "negotiation_features": [
+      "I need these premium features included at no extra cost.",
+      "You're listing things as add-ons that should be standard.",
+      "For this price, I expect everything included.",
+      "Your competitor includes more features in their base package."
+    ],
+    "negotiation_timeline": [
+      "Your timeline is too aggressive. We need to push this to next quarter.",
+      "Can we phase the rollout instead of doing everything at once?",
+      "My team doesn't have bandwidth for a quick implementation.",
+      "If we're delaying, I expect you to hold this pricing."
+    ],
+    "negotiation_sla": [
+      "I need 99.99% uptime guaranteed, not 99.9%.",
+      "What happens if you miss your SLA targets? I want financial penalties.",
+      "We need 1-hour response time for critical issues.",
+      "Show me your actual uptime stats, not just promises."
+    ],
+    "final_objection": [
+      "I still have concerns about [specific issue]. Address that and we're good.",
+      "Almost there, but I need one more concession to get this approved.",
+      "My team is skeptical. Give me ammunition to sell this internally.",
+      "I want to do this, but I need to see it's the right decision."
+    ]
+  },
+  "scenarios": {
+    "cold_call": {
+      "customer_behavior": "skeptical_and_busy",
+      "typical_objections": ["too_busy", "happy_current", "not_interested"],
+      "success_indicators": ["agreed_to_followup", "asked_questions", "requested_info"]
+    },
+    "discovery": {
+      "customer_behavior": "curious_but_cautious",
+      "typical_objections": ["need_more_info", "comparing_options", "timing"],
+      "success_indicators": ["shared_pain_points", "discussed_budget", "next_meeting_scheduled"]
+    },
+    "demo_followup": {
+      "customer_behavior": "interested_with_concerns",
+      "typical_objections": ["pricing", "features", "integration"],
+      "success_indicators": ["addressed_concerns", "discussed_timeline", "moving_to_contract"]
+    },
+    "price_objection": {
+      "customer_behavior": "budget_focused_negotiator",
+      "typical_objections": ["too_expensive", "competitor_cheaper", "need_discount"],
+      "success_indicators": ["discussed_value", "justified_premium", "found_middle_ground"]
+    },
+    "negotiation": {
+      "customer_behavior": "demanding_but_ready_to_buy",
+      "typical_objections": ["payment_terms", "sla_requirements", "feature_additions", "timeline"],
+      "success_indicators": ["agreed_on_terms", "both_sides_compromised", "contract_ready"]
+    }
+  }
+}
