@@ -29,6 +29,8 @@ export default function SimulationPage({ scenario, onComplete, onBack }: Simulat
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    console.log('SimulationPage mounted with profile:', profile?.id);
+    console.log('Scenario:', scenario?.id, scenario?.title);
     initSession();
   }, []);
 
@@ -145,13 +147,26 @@ export default function SimulationPage({ scenario, onComplete, onBack }: Simulat
 
   const saveSession = async (): Promise<string | null> => {
     if (!profile?.id) {
+      console.error('Cannot save: No profile ID found');
+      return null;
+    }
+
+    if (!scenario?.id) {
+      console.error('Cannot save: No scenario ID found');
       return null;
     }
 
     const userMessageCount = messages.filter(m => m.role === 'user').length;
     if (userMessageCount === 0) {
+      console.error('Cannot save: No user messages');
       return null;
     }
+
+    console.log('Attempting to save session...', {
+      userId: profile.id,
+      scenarioId: scenario.id,
+      messageCount: userMessageCount
+    });
 
     try {
       const transcript = messages.map(m => `${m.role === 'user' ? 'You' : 'Customer'}: ${m.content}`).join('\n\n');
@@ -188,20 +203,39 @@ export default function SimulationPage({ scenario, onComplete, onBack }: Simulat
         .maybeSingle();
 
       if (error) {
-        console.error('Database error saving simulation:', error);
-        console.error('Session data attempted:', { ...sessionData, transcript: '[truncated]' });
+        console.error('❌ Database error saving simulation:', error);
+        console.error('Error details:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
+        console.error('Session data attempted:', {
+          user_id: sessionData.user_id,
+          scenario_id: sessionData.scenario_id,
+          score: sessionData.score,
+          transcript_length: sessionData.transcript.length
+        });
         return null;
       }
 
       if (!data) {
-        console.error('No data returned after insert - possible RLS policy issue');
+        console.error('❌ No data returned after insert - possible RLS policy issue');
+        console.error('This usually means the insert succeeded but RLS prevented reading it back');
         return null;
       }
 
-      console.log('Session saved successfully:', data.id);
+      console.log('✅ Session saved successfully:', data.id);
+      console.log('Saved session details:', {
+        id: data.id,
+        score: data.score,
+        user_id: data.user_id
+      });
       return data.id;
     } catch (err: any) {
-      console.error('Exception during save:', err);
+      console.error('❌ Exception during save:', err);
+      console.error('Exception type:', err.name);
+      console.error('Exception message:', err.message);
       return null;
     }
   };
