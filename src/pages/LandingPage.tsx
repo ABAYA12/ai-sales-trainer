@@ -28,7 +28,7 @@ export default function LandingPage({ onGetStarted, onNavigate }: LandingPagePro
             Start Free Training
             <ArrowRight className="h-5 w-5" />
           </button>
-          <p className="mt-4 text-sm text-slate-500">No credit card required. 3 free simulations daily.</p>
+          <p className="mt-4 text-sm text-slate-500">No credit card required. 6 free simulations daily.</p>
         </div>
       </section>
 
@@ -76,7 +76,7 @@ export default function LandingPage({ onGetStarted, onNavigate }: LandingPagePro
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start gap-2">
                   <span className="text-emerald-600 mt-1">✓</span>
-                  <span className="text-slate-600">3 simulations per day</span>
+                  <span className="text-slate-600">6 simulations per day</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-emerald-600 mt-1">✓</span>

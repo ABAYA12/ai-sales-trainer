@@ -62,8 +62,8 @@ export default function ScenarioPage({ onSelectScenario, onDashboard, onLogout }
     setLoading(false);
   };
 
-  const usageText = `${profile?.simulations_today || 0}/3 used today`;
-  const canSimulate = (profile?.simulations_today || 0) < 3;
+  const usageText = `${profile?.simulations_today || 0}/6 used today`;
+  const canSimulate = (profile?.simulations_today || 0) < 6;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
@@ -96,10 +96,16 @@ export default function ScenarioPage({ onSelectScenario, onDashboard, onLogout }
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {!canSimulate && (
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-8">
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-8 flex items-center justify-between">
             <p className="text-amber-800 font-medium">
-              You've used all 3 free simulations today. Upgrade to Pro for unlimited access!
+              You've used all 6 free simulations today. Upgrade to Pro for unlimited access!
             </p>
+            <button
+              onClick={() => alert('Upgrade successful! You now have unlimited access to PitchPilot Pro.')}
+              className="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-semibold whitespace-nowrap ml-4"
+            >
+              Upgrade Now
+            </button>
           </div>
         )}
 

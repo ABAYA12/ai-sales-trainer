@@ -23,6 +23,10 @@ export function generateAIResponse(
   const lowerMessage = userMessage.toLowerCase();
   const scenarioType = getScenarioType(scenarioContext);
 
+  // Get the previous AI response for context awareness
+  const previousResponses = conversationHistory.filter(m => m.role === 'assistant').map(m => m.content.toLowerCase());
+  const lastAIResponse = previousResponses.length > 0 ? previousResponses[previousResponses.length - 1] : '';
+
   // FIRST MESSAGE - Greeting
   if (messageCount === 1) {
     const greetingKey = scenarioType as keyof typeof salesKnowledge.greetings;
@@ -30,24 +34,29 @@ export function generateAIResponse(
     return selectRandom(greetings);
   }
 
-  // Detect user intent based on keywords
-  const isGreeting = /^(hi|hello|hey|good morning|good afternoon|greetings)/i.test(userMessage.trim());
-  const isIntroduction = lowerMessage.includes('my name') || lowerMessage.includes('i am') || lowerMessage.includes("i'm") || (lowerMessage.includes('from') && lowerMessage.includes('company'));
-  const isAskingNeed = lowerMessage.includes('what') && (lowerMessage.includes('need') || lowerMessage.includes('looking for') || lowerMessage.includes('challenge') || lowerMessage.includes('problem'));
-  const isExplainingSolution = lowerMessage.includes('help') || lowerMessage.includes('solution') || lowerMessage.includes('offer') || lowerMessage.includes('provide');
-  const isDiscussingFeatures = lowerMessage.includes('feature') || lowerMessage.includes('capability') || lowerMessage.includes('function') || lowerMessage.includes('does it');
-  const isPricing = lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('expensive') || lowerMessage.includes('budget') || lowerMessage.includes('$');
-  const isValue = lowerMessage.includes('value') || lowerMessage.includes('roi') || lowerMessage.includes('save') || lowerMessage.includes('benefit');
-  const isCompetitor = lowerMessage.includes('competitor') || lowerMessage.includes('alternative') || lowerMessage.includes('other option') || lowerMessage.includes('vs');
-  const isTimeline = lowerMessage.includes('when') || lowerMessage.includes('how long') || lowerMessage.includes('timeline') || lowerMessage.includes('implement');
-  const isSecurity = lowerMessage.includes('security') || lowerMessage.includes('secure') || lowerMessage.includes('compliance') || lowerMessage.includes('gdpr') || lowerMessage.includes('soc');
-  const isSupport = lowerMessage.includes('support') || lowerMessage.includes('help') || lowerMessage.includes('training') || lowerMessage.includes('onboarding');
-  const isDiscount = lowerMessage.includes('discount') || lowerMessage.includes('lower') || lowerMessage.includes('reduce') || lowerMessage.includes('cheaper');
-  const isPaymentTerms = lowerMessage.includes('payment') || lowerMessage.includes('terms') || lowerMessage.includes('monthly') || lowerMessage.includes('quarterly');
-  const isSLA = lowerMessage.includes('sla') || lowerMessage.includes('uptime') || lowerMessage.includes('guarantee') || lowerMessage.includes('availability');
-  const isTrial = lowerMessage.includes('trial') || lowerMessage.includes('test') || lowerMessage.includes('demo') || lowerMessage.includes('try');
-  const isPositive = lowerMessage.includes('interested') || lowerMessage.includes('sounds good') || lowerMessage.includes('like') || lowerMessage.includes('let\'s');
-  const isNegative = lowerMessage.includes('not interested') || lowerMessage.includes('too busy') || lowerMessage.includes('no thanks');
+  // Enhanced intent detection with better pattern matching
+  const isGreeting = /^(hi|hello|hey|good morning|good afternoon|greetings|yo|sup|howdy)/i.test(userMessage.trim());
+  const isIntroduction = lowerMessage.includes('my name') || lowerMessage.includes('i am') || lowerMessage.includes("i'm") || lowerMessage.includes('calling from') || (lowerMessage.includes('from') && (lowerMessage.includes('company') || lowerMessage.includes('represent')));
+  const isAskingNeed = (lowerMessage.includes('what') || lowerMessage.includes('tell me')) && (lowerMessage.includes('need') || lowerMessage.includes('looking for') || lowerMessage.includes('challenge') || lowerMessage.includes('problem') || lowerMessage.includes('pain') || lowerMessage.includes('struggle'));
+  const isExplainingSolution = (lowerMessage.includes('help') || lowerMessage.includes('solution') || lowerMessage.includes('offer') || lowerMessage.includes('provide') || lowerMessage.includes('can do') || lowerMessage.includes('allows you')) && !isPricing;
+  const isDiscussingFeatures = lowerMessage.includes('feature') || lowerMessage.includes('capability') || lowerMessage.includes('function') || lowerMessage.includes('does it') || lowerMessage.includes('can it') || lowerMessage.includes('able to') || lowerMessage.includes('work with');
+  const isPricing = lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('expensive') || lowerMessage.includes('budget') || lowerMessage.includes('$') || lowerMessage.includes('pricing') || lowerMessage.includes('how much');
+  const isValue = (lowerMessage.includes('value') || lowerMessage.includes('roi') || lowerMessage.includes('save') || lowerMessage.includes('benefit') || lowerMessage.includes('return') || lowerMessage.includes('worth')) && !isPricing;
+  const isCompetitor = lowerMessage.includes('competitor') || lowerMessage.includes('alternative') || lowerMessage.includes('other option') || lowerMessage.includes('vs') || lowerMessage.includes('compare') || lowerMessage.includes('different from');
+  const isTimeline = lowerMessage.includes('when') || lowerMessage.includes('how long') || lowerMessage.includes('timeline') || lowerMessage.includes('implement') || lowerMessage.includes('setup') || lowerMessage.includes('get started');
+  const isSecurity = lowerMessage.includes('security') || lowerMessage.includes('secure') || lowerMessage.includes('compliance') || lowerMessage.includes('gdpr') || lowerMessage.includes('soc') || lowerMessage.includes('privacy') || lowerMessage.includes('data protection');
+  const isSupport = (lowerMessage.includes('support') || lowerMessage.includes('training') || lowerMessage.includes('onboarding') || lowerMessage.includes('customer service')) && !lowerMessage.includes('how');
+  const isDiscount = lowerMessage.includes('discount') || lowerMessage.includes('lower') || lowerMessage.includes('reduce') || lowerMessage.includes('cheaper') || lowerMessage.includes('deal') || lowerMessage.includes('better price');
+  const isPaymentTerms = lowerMessage.includes('payment') || lowerMessage.includes('terms') || lowerMessage.includes('monthly') || lowerMessage.includes('quarterly') || lowerMessage.includes('annually') || lowerMessage.includes('invoice');
+  const isSLA = lowerMessage.includes('sla') || lowerMessage.includes('uptime') || lowerMessage.includes('guarantee') || lowerMessage.includes('availability') || lowerMessage.includes('reliability');
+  const isTrial = lowerMessage.includes('trial') || lowerMessage.includes('test') || lowerMessage.includes('demo') || lowerMessage.includes('try') || lowerMessage.includes('pilot');
+  const isPositive = lowerMessage.includes('interested') || lowerMessage.includes('sounds good') || lowerMessage.includes('like') || lowerMessage.includes('let\'s') || lowerMessage.includes('makes sense') || lowerMessage.includes('i see') || lowerMessage.includes('that works');
+  const isNegative = lowerMessage.includes('not interested') || lowerMessage.includes('too busy') || lowerMessage.includes('no thanks') || lowerMessage.includes('don\'t need') || lowerMessage.includes('not right now');
+  const isQuestion = lowerMessage.includes('?') || lowerMessage.startsWith('what') || lowerMessage.startsWith('how') || lowerMessage.startsWith('why') || lowerMessage.startsWith('when') || lowerMessage.startsWith('where') || lowerMessage.startsWith('can you');
+  const isAgreeing = lowerMessage.includes('yes') || lowerMessage.includes('sure') || lowerMessage.includes('okay') || lowerMessage.includes('ok') || lowerMessage.includes('agreed') || lowerMessage.includes('deal');
+
+  // Detect if user is providing information
+  const isProvidingInfo = lowerMessage.includes('we use') || lowerMessage.includes('we have') || lowerMessage.includes('currently') || lowerMessage.includes('right now') || lowerMessage.includes('our team') || lowerMessage.includes('we are');
 
   // Handle based on intent
   if (isGreeting) {
@@ -163,13 +172,46 @@ export function generateAIResponse(
     return selectRandom(midConvoResponses);
   }
 
+  // Respond to questions directly
+  if (isQuestion && !isAskingNeed && !isPositive) {
+    const questionResponses = [
+      "Good question! Let me address that. " + selectRandom(salesKnowledge.responses.explain_solution),
+      "I'm glad you asked. " + selectRandom(salesKnowledge.responses.discuss_features),
+      "That's an important point. " + selectRandom(salesKnowledge.responses.value_discussion),
+    ];
+    return selectRandom(questionResponses);
+  }
+
+  // Acknowledge information provided
+  if (isProvidingInfo) {
+    const acknowledgeResponses = [
+      "Thanks for sharing that context. That actually helps me understand your situation better. " + selectRandom(salesKnowledge.responses.ask_about_needs),
+      "I appreciate you sharing that. Based on what you've told me, " + selectRandom(salesKnowledge.responses.explain_solution),
+      "That's really helpful to know. Given your current setup, " + selectRandom(salesKnowledge.responses.value_discussion),
+    ];
+    return selectRandom(acknowledgeResponses);
+  }
+
+  // Handle agreement/positive signals
+  if (isAgreeing && messageCount >= 3) {
+    const agreementResponses = [
+      "Great! " + selectRandom(salesKnowledge.responses.closing_signals),
+      "Perfect! " + selectRandom(salesKnowledge.responses.positive_interest),
+      "Excellent. " + selectRandom(salesKnowledge.responses.closing_signals),
+    ];
+    return selectRandom(agreementResponses);
+  }
+
   // Early conversation defaults
   const earlyResponses = [
     "Okay, I'm listening. Tell me more about how this works.",
     "Interesting. What makes your approach different from others?",
     "I see. How long have you been doing this?",
     "That's a good point. What else should I know?",
-    "Walk me through your process. How would this work for us?"
+    "Walk me through your process. How would this work for us?",
+    "I'm curious - how does that compare to what we're doing now?",
+    "Tell me more. I want to understand this better before we go further.",
+    "Okay, that's a start. But what does that actually mean for us in practical terms?"
   ];
   return selectRandom(earlyResponses);
 }

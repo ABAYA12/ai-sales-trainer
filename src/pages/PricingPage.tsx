@@ -34,7 +34,7 @@ export default function PricingPage({ onNavigate, onGetStarted }: PricingPagePro
             <ul className="space-y-4 mb-10">
               <li className="flex items-start gap-3">
                 <Check className="h-6 w-6 text-emerald-600 flex-shrink-0 mt-0.5" />
-                <span className="text-slate-700">3 simulations per day</span>
+                <span className="text-slate-700">6 simulations per day</span>
               </li>
               <li className="flex items-start gap-3">
                 <Check className="h-6 w-6 text-emerald-600 flex-shrink-0 mt-0.5" />
@@ -134,7 +134,7 @@ export default function PricingPage({ onNavigate, onGetStarted }: PricingPagePro
             <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
               <h3 className="text-lg font-bold text-slate-900 mb-2">Is there a free trial for Pro?</h3>
               <p className="text-slate-600">
-                The free plan gives you a great taste of PitchPilot with 3 daily simulations. When you're ready for unlimited access and advanced features, you can upgrade to Pro anytime.
+                The free plan gives you a great taste of PitchPilot with 6 daily simulations. When you're ready for unlimited access and advanced features, you can upgrade to Pro anytime.
               </p>
             </div>
 

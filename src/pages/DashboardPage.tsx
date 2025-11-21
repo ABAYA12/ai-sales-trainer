@@ -15,6 +15,7 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
   const [sessions, setSessions] = useState<Simulation[]>([]);
   const [loading, setLoading] = useState(true);
   const [showTutorial, setShowTutorial] = useState(true);
+  const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
 
   useEffect(() => {
     fetchSessions();
@@ -57,7 +58,7 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
     : 0;
 
   const totalSessions = sessions.length;
-  const sessionsLeft = Math.max(0, 3 - (profile?.simulations_today || 0));
+  const sessionsLeft = Math.max(0, 6 - (profile?.simulations_today || 0));
   const achievements = calculateAchievements(sessions);
 
   const formatDate = (dateString: string) => {
@@ -73,6 +74,16 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
     if (score >= 80) return 'text-emerald-600 bg-emerald-50 border-emerald-200';
     if (score >= 60) return 'text-amber-600 bg-amber-50 border-amber-200';
     return 'text-red-600 bg-red-50 border-red-200';
+  };
+
+  const handleUpgrade = () => {
+    setShowUpgradeDialog(true);
+  };
+
+  const confirmUpgrade = async () => {
+    alert('Upgrade successful! You now have unlimited access to PitchPilot Pro.');
+    setShowUpgradeDialog(false);
+    window.location.reload();
   };
 
   return (
@@ -195,9 +206,8 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
           </div>
 
           <button
-            onClick={onStartNew}
-            disabled={sessionsLeft === 0}
-            className="bg-gradient-to-br from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed rounded-2xl shadow-xl p-8 transition-all duration-300 transform hover:scale-105 disabled:hover:scale-100 text-white"
+            onClick={sessionsLeft > 0 ? onStartNew : handleUpgrade}
+            className="bg-gradient-to-br from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 rounded-2xl shadow-xl p-8 transition-all duration-300 transform hover:scale-105 text-white"
           >
             <div className="flex flex-col items-center justify-center h-full gap-4">
               <div className="h-20 w-20 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
@@ -208,7 +218,7 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
                   {sessionsLeft > 0 ? 'Start Practice' : 'Daily Limit Reached'}
                 </p>
                 <p className="text-emerald-100 text-sm">
-                  {sessionsLeft > 0 ? `${sessionsLeft} sessions left today` : 'Come back tomorrow!'}
+                  {sessionsLeft > 0 ? `${sessionsLeft} sessions left today` : 'Upgrade to Pro for unlimited access'}
                 </p>
               </div>
             </div>
@@ -357,6 +367,50 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
           </div>
         </div>
       </div>
+
+      {showUpgradeDialog && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 animate-in fade-in zoom-in duration-200">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Upgrade to Pro</h2>
+            <p className="text-slate-600 mb-6">
+              Get unlimited practice sessions, advanced analytics, and access to all premium scenarios for just $9/month.
+            </p>
+
+            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 mb-6">
+              <h3 className="font-bold text-emerald-900 mb-2">Pro Features:</h3>
+              <ul className="space-y-2 text-sm text-emerald-800">
+                <li className="flex items-center gap-2">
+                  <span className="text-emerald-600">✓</span> Unlimited daily simulations
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-emerald-600">✓</span> Access to all premium scenarios
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-emerald-600">✓</span> Advanced performance analytics
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-emerald-600">✓</span> Exportable scripts & playbooks
+                </li>
+              </ul>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowUpgradeDialog(false)}
+                className="flex-1 px-6 py-3 border-2 border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 transition-colors font-semibold"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmUpgrade}
+                className="flex-1 px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl hover:from-emerald-600 hover:to-emerald-700 transition-all font-semibold shadow-lg"
+              >
+                Upgrade Now
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
