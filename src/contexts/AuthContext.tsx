@@ -49,6 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             name: user.email.split('@')[0],
             sales_role: 'SDR',
             industry: 'Technology',
+            is_pro: false,
           })
           .select()
           .maybeSingle();
@@ -104,6 +105,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         name,
         sales_role: salesRole,
         industry,
+        is_pro: false,
       });
 
       if (profileError) return { error: profileError };

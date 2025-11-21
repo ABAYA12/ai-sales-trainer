@@ -13,6 +13,8 @@ export interface Profile {
   industry: string;
   simulations_today: number;
   last_simulation_date: string | null;
+  is_pro: boolean;
+  pro_upgraded_at: string | null;
   created_at: string;
   updated_at: string;
 }

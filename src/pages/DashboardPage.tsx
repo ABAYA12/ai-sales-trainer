@@ -16,6 +16,7 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
   const [loading, setLoading] = useState(true);
   const [showTutorial, setShowTutorial] = useState(true);
   const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   useEffect(() => {
     fetchSessions();
@@ -58,7 +59,8 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
     : 0;
 
   const totalSessions = sessions.length;
-  const sessionsLeft = Math.max(0, 6 - (profile?.simulations_today || 0));
+  const isPro = profile?.is_pro || false;
+  const sessionsLeft = isPro ? 999 : Math.max(0, 6 - (profile?.simulations_today || 0));
   const achievements = calculateAchievements(sessions);
 
   const formatDate = (dateString: string) => {
@@ -81,9 +83,29 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
   };
 
   const confirmUpgrade = async () => {
-    alert('Upgrade successful! You now have unlimited access to PitchPilot Pro.');
+    if (!profile?.id) return;
+
+    // Update profile to Pro status
+    const { error } = await supabase
+      .from('profiles')
+      .update({
+        is_pro: true,
+        pro_upgraded_at: new Date().toISOString(),
+      })
+      .eq('id', profile.id);
+
+    if (error) {
+      console.error('Error upgrading to Pro:', error);
+      return;
+    }
+
     setShowUpgradeDialog(false);
-    window.location.reload();
+    setShowSuccessMessage(true);
+
+    // Reload after showing success message
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   };
 
   return (
@@ -303,12 +325,14 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
                 <div>
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-slate-600 text-sm font-medium">Today's Progress</span>
-                    <span className="text-slate-900 font-bold">{profile?.simulations_today || 0}/3</span>
+                    <span className="text-slate-900 font-bold">
+                      {isPro ? 'Pro - Unlimited' : `${profile?.simulations_today || 0}/6`}
+                    </span>
                   </div>
-                  <div className="w-full bg-slate-200 rounded-full h-3">
+                  <div className="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
                     <div
                       className="bg-gradient-to-r from-emerald-500 to-emerald-600 h-3 rounded-full transition-all"
-                      style={{ width: `${((profile?.simulations_today || 0) / 3) * 100}%` }}
+                      style={{ width: `${Math.min(((profile?.simulations_today || 0) / 6) * 100, 100)}%` }}
                     ></div>
                   </div>
                 </div>
@@ -408,6 +432,25 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
                 Upgrade Now
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {showSuccessMessage && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center animate-in fade-in zoom-in duration-200">
+            <div className="h-20 w-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="h-10 w-10 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h2 className="text-3xl font-bold text-slate-900 mb-2">Upgrade Successful!</h2>
+            <p className="text-slate-600 mb-4">
+              You now have unlimited access to PitchPilot Pro.
+            </p>
+            <p className="text-sm text-emerald-600 font-medium">
+              Refreshing your dashboard...
+            </p>
           </div>
         </div>
       )}

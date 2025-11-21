@@ -45,6 +45,7 @@ export default function ScenarioPage({ onSelectScenario, onDashboard, onLogout }
   const { profile } = useAuth();
   const [scenarios, setScenarios] = useState<Scenario[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   useEffect(() => {
     fetchScenarios();
@@ -62,8 +63,9 @@ export default function ScenarioPage({ onSelectScenario, onDashboard, onLogout }
     setLoading(false);
   };
 
-  const usageText = `${profile?.simulations_today || 0}/6 used today`;
-  const canSimulate = (profile?.simulations_today || 0) < 6;
+  const isPro = profile?.is_pro || false;
+  const usageText = isPro ? 'Pro - Unlimited' : `${profile?.simulations_today || 0}/6 used today`;
+  const canSimulate = isPro || (profile?.simulations_today || 0) < 6;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
@@ -101,7 +103,17 @@ export default function ScenarioPage({ onSelectScenario, onDashboard, onLogout }
               You've used all 6 free simulations today. Upgrade to Pro for unlimited access!
             </p>
             <button
-              onClick={() => alert('Upgrade successful! You now have unlimited access to PitchPilot Pro.')}
+              onClick={async () => {
+                if (!profile?.id) return;
+                const { error } = await supabase
+                  .from('profiles')
+                  .update({ is_pro: true, pro_upgraded_at: new Date().toISOString() })
+                  .eq('id', profile.id);
+                if (!error) {
+                  setShowSuccessMessage(true);
+                  setTimeout(() => window.location.reload(), 2000);
+                }
+              }}
               className="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-semibold whitespace-nowrap ml-4"
             >
               Upgrade Now
@@ -158,6 +170,24 @@ export default function ScenarioPage({ onSelectScenario, onDashboard, onLogout }
         )}
       </div>
 
+      {showSuccessMessage && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center">
+            <div className="h-20 w-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="h-10 w-10 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h2 className="text-3xl font-bold text-slate-900 mb-2">Upgrade Successful!</h2>
+            <p className="text-slate-600 mb-4">
+              You now have unlimited access to PitchPilot Pro.
+            </p>
+            <p className="text-sm text-emerald-600 font-medium">
+              Refreshing your page...
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
