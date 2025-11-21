@@ -33,7 +33,14 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
       .order('created_at', { ascending: false })
       .limit(10);
 
-    if (data && !error) {
+    if (error) {
+      console.error('Error fetching sessions:', error);
+      setLoading(false);
+      return;
+    }
+
+    if (data) {
+      console.log(`Loaded ${data.length} simulation sessions for user`);
       setSessions(data);
       if (data.length > 0) setShowTutorial(false);
     }

@@ -188,15 +188,17 @@ export default function SimulationPage({ scenario, onComplete, onBack }: Simulat
         .maybeSingle();
 
       if (error) {
-        console.error('Database error:', error);
+        console.error('Database error saving simulation:', error);
+        console.error('Session data attempted:', { ...sessionData, transcript: '[truncated]' });
         return null;
       }
 
       if (!data) {
-        console.error('No data returned after insert');
+        console.error('No data returned after insert - possible RLS policy issue');
         return null;
       }
 
+      console.log('Session saved successfully:', data.id);
       return data.id;
     } catch (err: any) {
       console.error('Exception during save:', err);
@@ -208,7 +210,10 @@ export default function SimulationPage({ scenario, onComplete, onBack }: Simulat
     if (ending) return;
 
     const userMessageCount = messages.filter(m => m.role === 'user').length;
-    if (userMessageCount === 0) return;
+    if (userMessageCount === 0) {
+      alert('Please send at least one message before ending the session.');
+      return;
+    }
 
     setEnding(true);
     const sessionId = await saveSession();
@@ -216,6 +221,8 @@ export default function SimulationPage({ scenario, onComplete, onBack }: Simulat
 
     if (sessionId) {
       onComplete(sessionId);
+    } else {
+      alert('Failed to save your session. Please check your connection and try again.');
     }
   };
 
@@ -236,6 +243,10 @@ export default function SimulationPage({ scenario, onComplete, onBack }: Simulat
     setEnding(true);
     const sessionId = await saveSession();
     setEnding(false);
+
+    if (!sessionId) {
+      alert('Failed to save your session. Please check your connection.');
+    }
 
     if (onBack) {
       onBack();
