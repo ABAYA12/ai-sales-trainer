@@ -301,37 +301,38 @@ export default function SimulationPage({ scenario, onComplete, onBack }: Simulat
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50 flex flex-col">
       <nav className="border-b bg-white/90 backdrop-blur-xl sticky top-0 z-50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+          <div className="flex justify-between items-center h-14 sm:h-16 gap-2">
+            <div className="flex items-center gap-2 sm:gap-4 flex-1 min-w-0">
               {onBack && (
                 <button
                   onClick={handleBack}
                   disabled={ending}
-                  className="px-4 py-2 text-slate-600 hover:text-slate-900 font-medium transition-colors border border-slate-300 rounded-lg hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-2 sm:px-4 py-1.5 sm:py-2 text-slate-600 hover:text-slate-900 font-medium transition-colors border border-slate-300 rounded-lg hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-base whitespace-nowrap"
                 >
-                  {ending ? 'Saving...' : '← Back to Dashboard'}
+                  {ending ? 'Saving...' : '← Back'}
                 </button>
               )}
-              <div>
-                <h1 className="text-lg font-bold text-slate-900">{scenario.title}</h1>
-                <p className="text-xs text-slate-600">{scenario.difficulty} • {userMessages} exchanges</p>
+              <div className="flex-1 min-w-0">
+                <h1 className="text-sm sm:text-base lg:text-lg font-bold text-slate-900 truncate">{scenario.title}</h1>
+                <p className="text-xs text-slate-600 truncate">{scenario.difficulty} • {userMessages} exchanges</p>
               </div>
             </div>
             <button
               onClick={handleEnd}
               disabled={ending}
-              className="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-red-700 transition-all font-bold flex items-center gap-2 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg sm:rounded-xl hover:from-red-600 hover:to-red-700 transition-all font-bold flex items-center gap-1 sm:gap-2 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm lg:text-base whitespace-nowrap"
             >
               {ending ? (
                 <>
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                  Saving Your Score...
+                  <div className="animate-spin rounded-full h-4 w-4 sm:h-5 sm:w-5 border-b-2 border-white"></div>
+                  <span className="hidden sm:inline">Saving...</span>
                 </>
               ) : (
                 <>
-                  <Square className="h-5 w-5" />
-                  End & View Score
+                  <Square className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span className="hidden sm:inline">End & View Score</span>
+                  <span className="sm:hidden">End</span>
                 </>
               )}
             </button>
@@ -339,31 +340,31 @@ export default function SimulationPage({ scenario, onComplete, onBack }: Simulat
         </div>
       </nav>
 
-      <div className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 grid lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white rounded-2xl shadow-xl border border-slate-200 flex flex-col overflow-hidden">
-          <div className="flex-1 overflow-y-auto p-6 space-y-4">
+      <div className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-4 lg:p-6 xl:p-8 grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="lg:col-span-2 bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 flex flex-col overflow-hidden h-[calc(100vh-12rem)] sm:h-[calc(100vh-10rem)]">
+          <div className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6 space-y-3 sm:space-y-4">
             {messages.map((message, index) => (
               <div
                 key={index}
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom duration-300`}
               >
                 <div
-                  className={`max-w-[80%] px-5 py-3 rounded-2xl shadow-md ${
+                  className={`max-w-[85%] sm:max-w-[80%] px-3 sm:px-4 lg:px-5 py-2 sm:py-2.5 lg:py-3 rounded-2xl shadow-md ${
                     message.role === 'user'
                       ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white'
                       : 'bg-slate-100 text-slate-900 border border-slate-200'
                   }`}
                 >
-                  <p className="text-xs font-semibold mb-2 opacity-80">
+                  <p className="text-xs font-semibold mb-1 sm:mb-2 opacity-80">
                     {message.role === 'user' ? 'You' : 'AI Customer'}
                   </p>
-                  <p className="leading-relaxed">{message.content}</p>
+                  <p className="text-sm sm:text-base leading-relaxed">{message.content}</p>
                 </div>
               </div>
             ))}
             {loading && (
               <div className="flex justify-start animate-in fade-in duration-300">
-                <div className="bg-slate-100 border border-slate-200 px-5 py-3 rounded-2xl shadow-md">
+                <div className="bg-slate-100 border border-slate-200 px-4 sm:px-5 py-2 sm:py-3 rounded-2xl shadow-md">
                   <div className="flex gap-1">
                     <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
                     <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -375,7 +376,7 @@ export default function SimulationPage({ scenario, onComplete, onBack }: Simulat
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="border-t border-slate-200 p-4 bg-slate-50">
+          <div className="border-t border-slate-200 p-3 sm:p-4 bg-slate-50">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -383,28 +384,28 @@ export default function SimulationPage({ scenario, onComplete, onBack }: Simulat
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
                 placeholder="Type your response..."
-                className="flex-1 px-4 py-3 bg-white border-2 border-slate-300 text-slate-900 placeholder-slate-500 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                className="flex-1 px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base bg-white border-2 border-slate-300 text-slate-900 placeholder-slate-500 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
                 autoFocus
               />
               <button
                 onClick={handleSend}
                 disabled={loading || !input.trim()}
-                className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl hover:from-emerald-600 hover:to-emerald-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
+                className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg sm:rounded-xl hover:from-emerald-600 hover:to-emerald-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
               >
                 <Send className="h-5 w-5" />
               </button>
             </div>
-            <p className="text-slate-500 text-xs mt-2 text-center">
+            <p className="text-slate-500 text-xs mt-2 text-center hidden sm:block">
               Press Enter to send • Be professional and persuasive
             </p>
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4 hidden lg:block">
           {messages.length >= 2 && (
-            <div className="bg-white rounded-2xl shadow-lg border-2 border-emerald-200 p-6">
-              <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-emerald-600" />
+            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg border-2 border-emerald-200 p-4 sm:p-6">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-3 sm:mb-4 flex items-center gap-2">
+                <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600" />
                 Live AI Coaching
               </h3>
               <LiveCoachingPanel
@@ -415,9 +416,9 @@ export default function SimulationPage({ scenario, onComplete, onBack }: Simulat
             </div>
           )}
 
-          <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
-            <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-              <MessageCircle className="h-5 w-5 text-emerald-600" />
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg border border-slate-200 p-4 sm:p-6">
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-3 sm:mb-4 flex items-center gap-2">
+              <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600" />
               Scenario Details
             </h3>
             <div className="space-y-3">

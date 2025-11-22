@@ -71,23 +71,23 @@ export default function ScenarioPage({ onSelectScenario, onDashboard, onLogout }
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <nav className="border-b bg-white/80 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-4">
-              <span className="text-xl font-bold text-slate-900">Choose Your Scenario</span>
-              <span className="text-sm px-3 py-1 bg-slate-100 rounded-full text-slate-600">
+          <div className="flex justify-between items-center h-14 sm:h-16">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+              <span className="text-base sm:text-lg lg:text-xl font-bold text-slate-900">Choose Scenario</span>
+              <span className="text-xs sm:text-sm px-2 sm:px-3 py-0.5 sm:py-1 bg-slate-100 rounded-full text-slate-600 w-fit">
                 {usageText}
               </span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2">
               <button
                 onClick={onDashboard}
-                className="px-4 py-2 text-slate-600 hover:text-slate-900 font-medium"
+                className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-base text-slate-600 hover:text-slate-900 font-medium"
               >
                 Dashboard
               </button>
               <button
                 onClick={onLogout}
-                className="px-4 py-2 text-slate-600 hover:text-slate-900 font-medium"
+                className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-base text-slate-600 hover:text-slate-900 font-medium"
               >
                 Logout
               </button>
@@ -96,10 +96,10 @@ export default function ScenarioPage({ onSelectScenario, onDashboard, onLogout }
         </div>
       </nav>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
         {!canSimulate && (
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-8 flex items-center justify-between">
-            <p className="text-amber-800 font-medium">
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 sm:p-4 mb-6 sm:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+            <p className="text-amber-800 font-medium text-sm sm:text-base">
               You've used all 6 free simulations today. Upgrade to Pro for unlimited access!
             </p>
             <button
@@ -114,7 +114,7 @@ export default function ScenarioPage({ onSelectScenario, onDashboard, onLogout }
                   setTimeout(() => window.location.reload(), 2000);
                 }
               }}
-              className="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-semibold whitespace-nowrap ml-4"
+              className="w-full sm:w-auto px-4 sm:px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-semibold whitespace-nowrap text-sm sm:text-base"
             >
               Upgrade Now
             </button>
@@ -122,11 +122,11 @@ export default function ScenarioPage({ onSelectScenario, onDashboard, onLogout }
         )}
 
         {loading ? (
-          <div className="text-center py-12">
+          <div className="text-center py-8 sm:py-12">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {scenarios.filter(s => !s.is_premium).map((scenario) => {
               const Icon = getScenarioIcon(scenario.title);
               const difficultyColor = getDifficultyColor(scenario.difficulty);
@@ -137,29 +137,29 @@ export default function ScenarioPage({ onSelectScenario, onDashboard, onLogout }
                   key={scenario.id}
                   onClick={() => canSimulate && onSelectScenario(scenario)}
                   disabled={!canSimulate}
-                  className="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300 text-left disabled:opacity-50 disabled:cursor-not-allowed group transform hover:-translate-y-1"
+                  className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border-2 border-slate-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300 text-left disabled:opacity-50 disabled:cursor-not-allowed group sm:transform sm:hover:-translate-y-1"
                 >
-                  <div className="h-14 w-14 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-xl flex items-center justify-center mb-4 group-hover:from-emerald-200 group-hover:to-emerald-300 transition-all shadow-md">
-                    <Icon className="h-7 w-7 text-emerald-600" />
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 group-hover:from-emerald-200 group-hover:to-emerald-300 transition-all shadow-md">
+                    <Icon className="h-6 w-6 sm:h-7 sm:w-7 text-emerald-600" />
                   </div>
 
-                  <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition-colors">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition-colors">
                     {scenario.title}
                   </h3>
 
-                  <p className="text-sm text-slate-600 mb-4 leading-relaxed min-h-[40px]">
+                  <p className="text-xs sm:text-sm text-slate-600 mb-3 sm:mb-4 leading-relaxed min-h-[32px] sm:min-h-[40px]">
                     {scenario.description}
                   </p>
 
-                  <div className="flex items-center justify-between pt-3 border-t border-slate-100">
-                    <div className="flex items-center gap-2">
-                      <span className="text-lg">{stars}</span>
-                      <span className={`inline-block px-3 py-1 rounded-lg text-xs font-semibold border ${difficultyColor}`}>
+                  <div className="flex items-center justify-between pt-2 sm:pt-3 border-t border-slate-100">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                      <span className="text-base sm:text-lg">{stars}</span>
+                      <span className={`inline-block px-2 sm:px-3 py-0.5 sm:py-1 rounded-lg text-xs font-semibold border ${difficultyColor}`}>
                         {scenario.difficulty}
                       </span>
                     </div>
 
-                    <div className="text-emerald-600 font-semibold text-sm group-hover:translate-x-1 transition-transform">
+                    <div className="text-emerald-600 font-semibold text-xs sm:text-sm group-hover:translate-x-1 transition-transform">
                       Start →
                     </div>
                   </div>

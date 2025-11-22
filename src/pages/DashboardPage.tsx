@@ -112,23 +112,23 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50">
       <nav className="border-b bg-white/90 backdrop-blur-xl sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-md">
-                <Target className="h-6 w-6 text-white" />
+          <div className="flex justify-between items-center h-14 sm:h-16">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="h-8 w-8 sm:h-10 sm:w-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-md">
+                <Target className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">
+              <span className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">
                 PitchPilot
               </span>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-emerald-50 rounded-lg border border-emerald-200">
-                <span className="text-sm text-slate-600">Welcome,</span>
-                <span className="text-sm font-semibold text-emerald-700">{profile?.name}</span>
+            <div className="flex items-center gap-2 sm:gap-4">
+              <div className="hidden sm:flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-emerald-50 rounded-lg border border-emerald-200">
+                <span className="text-xs sm:text-sm text-slate-600">Welcome,</span>
+                <span className="text-xs sm:text-sm font-semibold text-emerald-700">{profile?.name}</span>
               </div>
               <button
                 onClick={onLogout}
-                className="px-4 py-2 text-slate-600 hover:text-slate-900 font-medium transition-colors"
+                className="px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-slate-600 hover:text-slate-900 font-medium transition-colors"
               >
                 Logout
               </button>
@@ -137,46 +137,46 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
         {showTutorial && totalSessions === 0 && (
-          <div className="mb-8 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-2xl shadow-xl p-8 text-white relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
+          <div className="mb-6 sm:mb-8 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 text-white relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 sm:w-64 sm:h-64 bg-white/10 rounded-full -mr-16 sm:-mr-32 -mt-16 sm:-mt-32"></div>
             <div className="relative">
               <button
                 onClick={() => setShowTutorial(false)}
-                className="absolute top-0 right-0 text-white/80 hover:text-white"
+                className="absolute -top-1 -right-1 sm:top-0 sm:right-0 text-white/80 hover:text-white text-xl sm:text-base"
               >
                 ✕
               </button>
-              <div className="flex items-start gap-4">
-                <div className="h-12 w-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Lightbulb className="h-6 w-6" />
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="h-10 w-10 sm:h-12 sm:w-12 bg-white/20 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Lightbulb className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Welcome to PitchPilot!</h3>
-                  <p className="text-emerald-50 mb-4">
+                <div className="pr-6 sm:pr-0">
+                  <h3 className="text-lg sm:text-xl font-bold mb-1 sm:mb-2">Welcome to PitchPilot!</h3>
+                  <p className="text-emerald-50 text-sm sm:text-base mb-3 sm:mb-4">
                     Ready to master your sales skills? Here's how it works:
                   </p>
-                  <div className="grid md:grid-cols-3 gap-4 mb-6">
-                    <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
-                      <div className="font-semibold mb-1">1. Choose Scenario</div>
-                      <div className="text-sm text-emerald-100">Pick from cold calls, objection handling, pricing discussions & more</div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    <div className="bg-white/10 rounded-lg p-3 sm:p-4 backdrop-blur-sm">
+                      <div className="font-semibold mb-1 text-sm sm:text-base">1. Choose Scenario</div>
+                      <div className="text-xs sm:text-sm text-emerald-100">Pick from cold calls, objection handling, pricing discussions & more</div>
                     </div>
-                    <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
-                      <div className="font-semibold mb-1">2. Practice with AI</div>
-                      <div className="text-sm text-emerald-100">Have real conversations with AI customers that challenge you</div>
+                    <div className="bg-white/10 rounded-lg p-3 sm:p-4 backdrop-blur-sm">
+                      <div className="font-semibold mb-1 text-sm sm:text-base">2. Practice with AI</div>
+                      <div className="text-xs sm:text-sm text-emerald-100">Have real conversations with AI customers that challenge you</div>
                     </div>
-                    <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
-                      <div className="font-semibold mb-1">3. Get Instant Feedback</div>
-                      <div className="text-sm text-emerald-100">See your scores and track improvement over time</div>
+                    <div className="bg-white/10 rounded-lg p-3 sm:p-4 backdrop-blur-sm">
+                      <div className="font-semibold mb-1 text-sm sm:text-base">3. Get Instant Feedback</div>
+                      <div className="text-xs sm:text-sm text-emerald-100">See your scores and track improvement over time</div>
                     </div>
                   </div>
                   <button
                     onClick={onStartNew}
-                    className="px-6 py-3 bg-white text-emerald-600 rounded-lg hover:bg-emerald-50 transition-colors font-semibold inline-flex items-center gap-2"
+                    className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-white text-emerald-600 rounded-lg hover:bg-emerald-50 transition-colors font-semibold inline-flex items-center justify-center gap-2 text-sm sm:text-base"
                   >
                     Start Your First Practice
-                    <ArrowRight className="h-5 w-5" />
+                    <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                   </button>
                 </div>
               </div>
@@ -184,62 +184,62 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
           </div>
         )}
 
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-900 mb-2">Your Performance Dashboard</h1>
-          <p className="text-slate-600 text-lg">Track your progress and become a sales champion</p>
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-1 sm:mb-2">Your Performance Dashboard</h1>
+          <p className="text-slate-600 text-sm sm:text-base lg:text-lg">Track your progress and become a sales champion</p>
         </div>
 
-        <div className="grid lg:grid-cols-4 gap-6 mb-8">
-          <div className="lg:col-span-3 grid sm:grid-cols-3 gap-6">
-            <div className="bg-white rounded-2xl shadow-lg border-2 border-emerald-200 p-6 hover:shadow-xl transition-shadow">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-12 w-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-                  <Award className="h-6 w-6 text-emerald-600" />
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+          <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg border-2 border-emerald-200 p-4 sm:p-6 hover:shadow-xl transition-shadow">
+              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                <div className="h-10 w-10 sm:h-12 sm:w-12 bg-emerald-100 rounded-lg sm:rounded-xl flex items-center justify-center">
+                  <Award className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-600" />
                 </div>
-                <span className="text-sm font-medium text-slate-600">Average Score</span>
+                <span className="text-xs sm:text-sm font-medium text-slate-600">Average Score</span>
               </div>
-              <p className="text-4xl font-bold text-emerald-600">{avgScore}</p>
-              <p className="text-sm text-slate-500 mt-1">out of 100</p>
+              <p className="text-3xl sm:text-4xl font-bold text-emerald-600">{avgScore}</p>
+              <p className="text-xs sm:text-sm text-slate-500 mt-1">out of 100</p>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-lg border-2 border-blue-200 p-6 hover:shadow-xl transition-shadow">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-12 w-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                  <TrendingUp className="h-6 w-6 text-blue-600" />
+            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg border-2 border-blue-200 p-4 sm:p-6 hover:shadow-xl transition-shadow">
+              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                <div className="h-10 w-10 sm:h-12 sm:w-12 bg-blue-100 rounded-lg sm:rounded-xl flex items-center justify-center">
+                  <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
                 </div>
-                <span className="text-sm font-medium text-slate-600">Trend</span>
+                <span className="text-xs sm:text-sm font-medium text-slate-600">Trend</span>
               </div>
-              <p className={`text-4xl font-bold ${trend >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+              <p className={`text-3xl sm:text-4xl font-bold ${trend >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                 {trend >= 0 ? '+' : ''}{trend}
               </p>
-              <p className="text-sm text-slate-500 mt-1">last 5 sessions</p>
+              <p className="text-xs sm:text-sm text-slate-500 mt-1">last 5 sessions</p>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-lg border-2 border-violet-200 p-6 hover:shadow-xl transition-shadow">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-12 w-12 bg-violet-100 rounded-xl flex items-center justify-center">
-                  <BarChart3 className="h-6 w-6 text-violet-600" />
+            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg border-2 border-violet-200 p-4 sm:p-6 hover:shadow-xl transition-shadow">
+              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                <div className="h-10 w-10 sm:h-12 sm:w-12 bg-violet-100 rounded-lg sm:rounded-xl flex items-center justify-center">
+                  <BarChart3 className="h-5 w-5 sm:h-6 sm:w-6 text-violet-600" />
                 </div>
-                <span className="text-sm font-medium text-slate-600">Total Practice</span>
+                <span className="text-xs sm:text-sm font-medium text-slate-600">Total Practice</span>
               </div>
-              <p className="text-4xl font-bold text-violet-600">{totalSessions}</p>
-              <p className="text-sm text-slate-500 mt-1">sessions completed</p>
+              <p className="text-3xl sm:text-4xl font-bold text-violet-600">{totalSessions}</p>
+              <p className="text-xs sm:text-sm text-slate-500 mt-1">sessions completed</p>
             </div>
           </div>
 
           <button
             onClick={sessionsLeft > 0 ? onStartNew : handleUpgrade}
-            className="bg-gradient-to-br from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 rounded-2xl shadow-xl p-8 transition-all duration-300 transform hover:scale-105 text-white"
+            className="bg-gradient-to-br from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 rounded-xl sm:rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-300 sm:transform sm:hover:scale-105 text-white"
           >
-            <div className="flex flex-col items-center justify-center h-full gap-4">
-              <div className="h-20 w-20 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                <Play className="h-10 w-10" />
+            <div className="flex flex-col items-center justify-center h-full gap-3 sm:gap-4">
+              <div className="h-16 w-16 sm:h-20 sm:w-20 bg-white/20 rounded-xl sm:rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                <Play className="h-8 w-8 sm:h-10 sm:w-10" />
               </div>
               <div className="text-center">
-                <p className="font-bold text-xl mb-2">
+                <p className="font-bold text-lg sm:text-xl mb-1 sm:mb-2">
                   {sessionsLeft > 0 ? 'Start Practice' : 'Daily Limit Reached'}
                 </p>
-                <p className="text-emerald-100 text-sm">
+                <p className="text-emerald-100 text-xs sm:text-sm">
                   {sessionsLeft > 0 ? `${sessionsLeft} sessions left today` : 'Upgrade to Pro for unlimited access'}
                 </p>
               </div>
@@ -247,30 +247,30 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
           </button>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
-              <div className="border-b border-slate-200 p-6 bg-gradient-to-r from-emerald-50 to-white">
-                <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                  <MessageSquare className="h-6 w-6 text-emerald-600" />
+            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+              <div className="border-b border-slate-200 p-4 sm:p-6 bg-gradient-to-r from-emerald-50 to-white">
+                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900 flex items-center gap-2">
+                  <MessageSquare className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-600" />
                   Recent Practice Sessions
                 </h2>
               </div>
 
               {loading ? (
-                <div className="p-12 text-center">
-                  <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
+                <div className="p-8 sm:p-12 text-center">
+                  <div className="inline-block animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-2 border-emerald-600"></div>
                 </div>
               ) : sessions.length === 0 ? (
-                <div className="p-12 text-center">
-                  <div className="h-20 w-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Target className="h-10 w-10 text-emerald-600" />
+                <div className="p-8 sm:p-12 text-center">
+                  <div className="h-16 w-16 sm:h-20 sm:w-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                    <Target className="h-8 w-8 sm:h-10 sm:w-10 text-emerald-600" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">No practice sessions yet</h3>
-                  <p className="text-slate-600 mb-6">Start your first AI role-play session to see your progress here</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">No practice sessions yet</h3>
+                  <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6 px-4">Start your first AI role-play session to see your progress here</p>
                   <button
                     onClick={onStartNew}
-                    className="px-8 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl hover:from-emerald-600 hover:to-emerald-700 transition-all font-semibold shadow-lg"
+                    className="w-full sm:w-auto px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg sm:rounded-xl hover:from-emerald-600 hover:to-emerald-700 transition-all font-semibold shadow-lg text-sm sm:text-base"
                   >
                     Start Your First Practice
                   </button>
@@ -278,35 +278,35 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
               ) : (
                 <div className="divide-y divide-slate-200">
                   {sessions.map((session) => (
-                    <div key={session.id} className="p-6 hover:bg-slate-50 transition-colors">
+                    <div key={session.id} className="p-4 sm:p-6 hover:bg-slate-50 transition-colors">
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex-1">
-                          <div className="flex items-center gap-4 mb-3">
-                            <span className={`text-3xl font-bold px-4 py-2 rounded-xl border-2 ${getScoreColor(session.score)}`}>
+                          <div className="flex items-center gap-3 sm:gap-4 mb-3">
+                            <span className={`text-2xl sm:text-3xl font-bold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl border-2 ${getScoreColor(session.score)}`}>
                               {session.score}
                             </span>
                             <div>
-                              <p className="font-semibold text-slate-900">Overall Performance</p>
-                              <p className="text-slate-500 text-sm">{formatDate(session.created_at)}</p>
+                              <p className="font-semibold text-slate-900 text-sm sm:text-base">Overall Performance</p>
+                              <p className="text-slate-500 text-xs sm:text-sm">{formatDate(session.created_at)}</p>
                             </div>
                           </div>
 
-                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                            <div className="bg-emerald-50 rounded-lg p-3 border border-emerald-100">
-                              <span className="text-emerald-600 text-xs font-medium block mb-1">Clarity</span>
-                              <span className="font-bold text-emerald-700 text-lg">{session.clarity_score}</span>
+                          <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                            <div className="bg-emerald-50 rounded-lg p-2 sm:p-3 border border-emerald-100">
+                              <span className="text-emerald-600 text-xs font-medium block mb-0.5 sm:mb-1">Clarity</span>
+                              <span className="font-bold text-emerald-700 text-base sm:text-lg">{session.clarity_score}</span>
                             </div>
-                            <div className="bg-blue-50 rounded-lg p-3 border border-blue-100">
-                              <span className="text-blue-600 text-xs font-medium block mb-1">Confidence</span>
-                              <span className="font-bold text-blue-700 text-lg">{session.confidence_score}</span>
+                            <div className="bg-blue-50 rounded-lg p-2 sm:p-3 border border-blue-100">
+                              <span className="text-blue-600 text-xs font-medium block mb-0.5 sm:mb-1">Confidence</span>
+                              <span className="font-bold text-blue-700 text-base sm:text-lg">{session.confidence_score}</span>
                             </div>
-                            <div className="bg-violet-50 rounded-lg p-3 border border-violet-100">
-                              <span className="text-violet-600 text-xs font-medium block mb-1">Objections</span>
-                              <span className="font-bold text-violet-700 text-lg">{session.objection_handling_score}</span>
+                            <div className="bg-violet-50 rounded-lg p-2 sm:p-3 border border-violet-100">
+                              <span className="text-violet-600 text-xs font-medium block mb-0.5 sm:mb-1">Objections</span>
+                              <span className="font-bold text-violet-700 text-base sm:text-lg">{session.objection_handling_score}</span>
                             </div>
-                            <div className="bg-amber-50 rounded-lg p-3 border border-amber-100">
-                              <span className="text-amber-600 text-xs font-medium block mb-1">Closing</span>
-                              <span className="font-bold text-amber-700 text-lg">{session.closing_score}</span>
+                            <div className="bg-amber-50 rounded-lg p-2 sm:p-3 border border-amber-100">
+                              <span className="text-amber-600 text-xs font-medium block mb-0.5 sm:mb-1">Closing</span>
+                              <span className="font-bold text-amber-700 text-base sm:text-lg">{session.closing_score}</span>
                             </div>
                           </div>
                         </div>
@@ -318,10 +318,10 @@ export default function DashboardPage({ onStartNew, onLogout }: DashboardPagePro
             </div>
           </div>
 
-          <div className="space-y-6">
-            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Quick Stats</h3>
-              <div className="space-y-4">
+          <div className="space-y-4 sm:space-y-6">
+            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg border border-slate-200 p-4 sm:p-6">
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-3 sm:mb-4">Quick Stats</h3>
+              <div className="space-y-3 sm:space-y-4">
                 <div>
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-slate-600 text-sm font-medium">Today's Progress</span>
